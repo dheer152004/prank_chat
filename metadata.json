@@ -1,0 +1,6 @@
+{
+  "name": "Social Prank Message Creator",
+  "description": "An application to create fake (prank) messages for WhatsApp, Twitter, Facebook, and Telegram.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

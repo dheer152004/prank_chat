@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Hide native scrollbars across the application */
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+* {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE/Edge */
+}
+
+/* Hide SimpleBar's custom scrollbar tracks */
+.simplebar-scrollbar::before {
+  display: none !important;
+}
+.simplebar-track {
+  display: none !important;
+}
+
+.simplebar-content-wrapper::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.simplebar-content-wrapper {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
