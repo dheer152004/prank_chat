@@ -50,7 +50,7 @@ export default function ChatGPTPreview({ data }: { data: MessageData }) {
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto w-full no-scrollbar px-4 pt-6 pb-2">
-        <div className="flex flex-col max-w-2xl mx-auto">
+        <div className="flex flex-col max-w-2xl mx-auto min-h-full">
           {data.chatMessages.map((msg) => {
             const isMe = msg.sender === 'me';
 

@@ -2,6 +2,8 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { PLATFORMS } from '../constants';
 import { Navbar } from '../components/Navbar';
+import surpriseReactionImage from '../assets/images/image.png';
+import creativeScenarioImage from '../assets/images/image1.png';
 
 const platformImages: Record<string, string> = {
   whatsapp: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg',
@@ -11,12 +13,13 @@ const platformImages: Record<string, string> = {
   snapchat: 'https://upload.wikimedia.org/wikipedia/en/c/c4/Snapchat_logo.svg',
   instagram: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg',
   reddit: 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Reddit_logo.svg',
-  tinder: 'https://upload.wikimedia.org/wikipedia/commons/e/e1/TinderIcon-2017.svg'
+  tinder: 'https://upload.wikimedia.org/wikipedia/commons/e/e1/TinderIcon-2017.svg',
+  chatgpt: 'https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg'
 };
 
 const prankImages = [
   {
-    url: 'https://images.unsplash.com/photo-1529156069898-49953eb1b5b6?auto=format&fit=crop&q=80&w=800',
+    url: surpriseReactionImage,
     title: 'Surprise Reactions',
     description: 'Capture the exact moment they realize they\'ve been fooled.'
   },
@@ -26,7 +29,7 @@ const prankImages = [
     description: 'Perfect for group chats and inside jokes with close friends.'
   },
   {
-    url: 'https://images.unsplash.com/photo-1510515152857-cd28b80fc288?auto=format&fit=crop&q=80&w=800',
+    url: creativeScenarioImage,
     title: 'Hilarious Memories',
     description: 'Create unforgettable moments that everyone will talk about.'
   }
@@ -145,9 +148,9 @@ export default function Landing() {
             The best tool to create highly realistic fake social media messages entirely for entertainment purposes. Please use responsibly.
           </p>
           <div className="flex gap-6 text-sm text-gray-400">
-            <a href="#" className="hover:text-blue-600 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-blue-600 transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-blue-600 transition-colors">Contact</a>
+            <Link to="/privacy" className="hover:text-blue-600 transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-blue-600 transition-colors">Terms of Service</Link>
+            <Link to="/contact" className="hover:text-blue-600 transition-colors">Contact</Link>
           </div>
           <div className="mt-8 text-sm text-gray-400">
             &copy; {new Date().getFullYear()} SocialMock. All rights reserved.

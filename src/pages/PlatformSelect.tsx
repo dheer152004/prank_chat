@@ -14,6 +14,7 @@ const getIcon = (id: string, className: string) => {
     case 'snapchat': return <FaSnapchatGhost className={className} />;
     case 'reddit': return <FaRedditAlien className={className} />;
     case 'tinder': return <FaFire className={className} />;
+    case 'chatgpt': return <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" className={className} alt="ChatGPT" />;
     default: return null;
   }
 };

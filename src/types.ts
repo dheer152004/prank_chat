@@ -53,6 +53,6 @@ export interface MessageData {
   isUnmatched?: boolean;
   showUnmatchModal?: boolean;
   isTyping?: boolean;
-  replayTypingText?: string;
+  replayTypingText?: string | null;
   typingKey?: string | null;
 }

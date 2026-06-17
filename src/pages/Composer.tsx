@@ -85,6 +85,9 @@ export default function Composer() {
       
       const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
       const audioCtx = new AudioContext();
+      if (audioCtx.state === 'suspended') {
+        await audioCtx.resume();
+      }
       const dest = audioCtx.createMediaStreamDestination();
       
       const playSound = (type: 'normal' | 'modifier' | 'special' | 'sent' | 'received') => {
@@ -514,8 +517,9 @@ export default function Composer() {
              {p.id === 'snapchat' && <img src="https://img.icons8.com/color/48/snapchat.png" className="w-8 h-8" alt="Snapchat" />}
              {p.id === 'instagram' && <img src="https://img.icons8.com/color/48/instagram-new--v1.png" className="w-8 h-8" alt="Instagram" />}
              {p.id === 'reddit' && <img src="https://img.icons8.com/color/48/reddit.png" className="w-8 h-8" alt="Reddit" />}
-             {p.id === 'tinder' && <img src="https://img.icons8.com/color/48/tinder.png" className="w-8 h-8" alt="Tinder" />}
-             {!['whatsapp', 'twitter', 'facebook', 'telegram', 'snapchat', 'instagram', 'reddit', 'tinder'].includes(p.id) && <span className="text-2xl font-bold">{p.name[0]}</span>}
+             {p.id === 'tinder' && <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/TinderIcon-2017.svg" className="w-8 h-8" alt="Tinder" />}
+             {p.id === 'chatgpt' && <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" className="w-8 h-8" alt="ChatGPT" />}
+             {!['whatsapp', 'twitter', 'facebook', 'telegram', 'snapchat', 'instagram', 'reddit', 'tinder', 'chatgpt'].includes(p.id) && <span className="text-2xl font-bold">{p.name[0]}</span>}
           </Link>
         ))}
 
@@ -592,7 +596,7 @@ export default function Composer() {
             style={{ minHeight: 0 }}
             autoHide={true}
           >
-            <div className="p-6 space-y-5 pb-24">
+            <div className="p-6 space-y-5 pb-6">
             {/* Sender Details */}
             <div>
               <label className="block text-xs font-semibold text-gray-500 uppercase mb-2">Participant Details</label>
@@ -1215,18 +1219,18 @@ export default function Composer() {
           </div>
           </SimpleBar>
 
-          {/* Floating Add Message Button */}
           {(platform === 'whatsapp' || platform === 'telegram' || platform === 'instagram' || platform === 'snapchat' || platform === 'twitter' || platform === 'facebook' || platform === 'reddit' || platform === 'tinder' || platform === 'chatgpt') && (
-            <div className="absolute bottom-6 right-6 pointer-events-auto">
+            <div className="mt-auto p-4 border-t border-gray-100 bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] shrink-0 z-10 w-full">
                <button 
                  onClick={addMessage} 
-                 className="flex items-center gap-2 px-6 py-3.5 bg-indigo-600 text-white hover:bg-indigo-700 shadow-xl shadow-indigo-600/30 rounded-full text-base font-bold transition-all transform hover:-translate-y-0.5 cursor-pointer"
+                 className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white hover:bg-indigo-700 shadow-md shadow-indigo-600/20 rounded-xl text-base font-bold transition-all transform hover:-translate-y-0.5 cursor-pointer"
                >
                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
                  Add Message
                </button>
             </div>
           )}
+
         </Panel>
 
         <PanelResizeHandle className="w-2 transition-colors cursor-col-resize mx-1 hover:bg-gray-300 rounded-full hidden md:flex shrink-0 items-center justify-center relative group">
