@@ -34,6 +34,18 @@ export default function Composer() {
   const { platform } = useParams<{ platform: string }>();
   const isValidPlatform = PLATFORMS.some((p) => p.id === platform);
 
+  const [isMobile, setIsMobile] = useState<boolean>(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+  const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1024);
+
+  useEffect(() => {
+    const onResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setViewportWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   const previewRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
   const [isReplaying, setIsReplaying] = useState(false);
@@ -498,8 +510,8 @@ export default function Composer() {
   return (
     <>
       <div className="h-screen bg-[#f0f2f5] flex font-sans text-gray-900 overflow-hidden w-full">
-        {/* Left Sidebar: Nav replacement */}
-        <aside className="w-20 shrink-0 bg-[#1a1c1e] flex flex-col items-center py-6 gap-6 border-r border-gray-800 overflow-y-auto no-scrollbar">
+        {/* Left Sidebar: Nav replacement (hidden on mobile) */}
+        <aside className="hidden md:flex w-20 shrink-0 bg-[#1a1c1e] flex-col items-center py-6 gap-6 border-r border-gray-800 overflow-y-auto no-scrollbar">
         <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/20">
           <span className="text-white font-bold text-xl">P</span>
         </div>
@@ -529,6 +541,17 @@ export default function Composer() {
           </Link>
         </div>
       </aside>
+
+        {/* Mobile platform strip */}
+        {isMobile && (
+          <div className="w-full fixed top-0 left-0 right-0 z-40 bg-white/95 border-b border-gray-200 p-2 flex items-center gap-2 overflow-x-auto md:hidden">
+            {PLATFORMS.map((p) => (
+              <Link key={p.id} to={`/compose/${p.id}`} className={`flex items-center justify-center rounded-lg p-2 ${platform === p.id ? 'bg-indigo-100 text-indigo-700' : 'text-gray-600'}`}>
+                <span className="text-sm font-medium">{p.name}</span>
+              </Link>
+            ))}
+          </div>
+        )}
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col h-screen">
@@ -582,11 +605,11 @@ export default function Composer() {
         </header>
 
         {/* Working Space */}
-        <div className="flex-1 p-6 overflow-hidden h-full">
+        <div className={`flex-1 p-6 ${isMobile ? 'pt-20' : ''} overflow-hidden h-full`}>
           <PanelGroup orientation="horizontal" className="gap-3 w-full h-full">
         
         {/* Left Column: Form Settings */}
-        <Panel defaultSize={40} minSize={25} className="bg-white rounded-2xl shadow-sm border border-gray-200 flex flex-col relative h-full overflow-hidden">
+        <Panel defaultSize={isMobile ? 100 : 40} minSize={25} className="bg-white rounded-2xl shadow-sm border border-gray-200 flex flex-col relative h-full overflow-hidden">
           <div className="p-5 border-b border-gray-100 flex-shrink-0">
             <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400">Message Composer</h2>
           </div>
@@ -1238,7 +1261,7 @@ export default function Composer() {
         </PanelResizeHandle>
 
         {/* Right Column: Live Preview */}
-        <Panel defaultSize={60} minSize={30} className="bg-gray-200/50 rounded-2xl border-2 border-dashed border-gray-300 relative overflow-hidden h-full">
+        <Panel defaultSize={isMobile ? 100 : 60} minSize={30} className="bg-gray-200/50 rounded-2xl border-2 border-dashed border-gray-300 relative overflow-hidden h-full">
           <div className="absolute top-4 left-4 right-4 flex items-start justify-between z-10 px-4 pointer-events-none">
              <span className="px-2 py-1 bg-white border border-gray-300 text-[10px] font-bold uppercase rounded-md text-gray-400 tracking-tighter">Live Render</span>
              <div className="flex flex-col gap-2 items-end pointer-events-auto">
@@ -1293,11 +1316,11 @@ export default function Composer() {
             className="w-full h-full" 
             autoHide={true} 
           >
-            <div className="pt-24 pb-12 flex flex-col items-center min-h-full">
-            <div 
-              style={{ width: `${deviceSize.width}px`, height: `${deviceSize.height}px`, minHeight: `${deviceSize.height}px` }}
-              className="shrink-0 flex-none bg-white rounded-[40px] shadow-2xl border-[8px] border-gray-900 flex flex-col relative overflow-hidden transition-all duration-300"
-            >
+            <div className="w-full flex justify-center">
+              <div
+                style={{ width: `${deviceSize.width}px`, height: `${deviceSize.height}px`, minHeight: `${deviceSize.height}px`, transform: isMobile ? `scale(${Math.min((viewportWidth * 0.9) / deviceSize.width, 1)})` : undefined, transformOrigin: 'top center' }}
+                className="shrink-0 flex-none bg-white rounded-[40px] shadow-2xl border-[8px] border-gray-900 flex flex-col relative overflow-hidden transition-all duration-300"
+              >
               <div 
                 ref={previewRef}
                 className="w-full h-full flex flex-col relative"
