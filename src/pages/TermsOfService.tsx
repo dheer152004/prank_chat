@@ -1,10 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans p-6 md:p-12">
+      <SEO
+        title="Terms of Service"
+        description="Review the SocialMock terms of service and acceptable-use guidelines."
+        canonical="/terms"
+      />
       <div className="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100">
         <Link to="/" className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home

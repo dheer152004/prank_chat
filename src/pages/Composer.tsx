@@ -20,6 +20,7 @@ import AdModal from '../components/AdModal';
 import { Group as PanelGroup, Panel, Separator as PanelResizeHandle } from 'react-resizable-panels';
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
+import { SEO } from '../components/SEO';
 
 const DEFAULT_AVATAR = 'https://api.dicebear.com/7.x/notionists/svg?seed=Felix';
 
@@ -32,6 +33,7 @@ const DEVICE_SIZES = [
 
 export default function Composer() {
   const { platform } = useParams<{ platform: string }>();
+  const platformName = PLATFORMS.find((p) => p.id === platform)?.name ?? 'Platform';
   const isValidPlatform = PLATFORMS.some((p) => p.id === platform);
 
   const [isMobile, setIsMobile] = useState<boolean>(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
@@ -509,6 +511,12 @@ export default function Composer() {
 
   return (
     <>
+      <SEO
+        title={`Create ${platformName} Mockup`}
+        description={`No sign up required. Create high-quality ${platformName.toLowerCase()} mockup images and videos to prank your friends.`}
+        canonical={`/compose/${platform ?? ''}`}
+        noIndex
+      />
       <div className="h-screen bg-[#f0f2f5] flex font-sans text-gray-900 overflow-hidden w-full">
         {/* Left Sidebar: Nav replacement (hidden on mobile) */}
         <aside className="hidden md:flex w-20 shrink-0 bg-[#1a1c1e] flex-col items-center py-6 gap-6 border-r border-gray-800 overflow-y-auto no-scrollbar">

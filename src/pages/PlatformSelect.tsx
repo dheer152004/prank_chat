@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { PLATFORMS } from '../constants';
 import { FaWhatsapp, FaTwitter, FaFacebook, FaTelegram, FaArrowRight, FaInstagram, FaSnapchatGhost, FaRedditAlien, FaFire } from 'react-icons/fa';
 import { Navbar } from '../components/Navbar';
+import { SEO } from '../components/SEO';
 
 const getIcon = (id: string, className: string) => {
   switch (id) {
@@ -22,6 +23,11 @@ const getIcon = (id: string, className: string) => {
 export default function PlatformSelect() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+      <SEO
+        title="Choose a Platform"
+        description="No sign up required. Pick WhatsApp, Instagram, and other apps to create high-quality mockup images and videos for pranking your friends."
+        canonical="/platforms"
+      />
       <Navbar />
       
       <main className="flex-1 max-w-5xl mx-auto px-6 py-16 w-full">

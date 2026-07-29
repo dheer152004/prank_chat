@@ -5,10 +5,12 @@ import Composer from './pages/Composer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import Contact from './pages/Contact';
+import {HelmetProvider} from 'react-helmet-async';
 
 export default function App() {
   return (
     <BrowserRouter>
+    <HelmetProvider>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/platforms" element={<PlatformSelect />} />
@@ -17,6 +19,7 @@ export default function App() {
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+    </HelmetProvider>
     </BrowserRouter>
   );
 }

@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { PLATFORMS } from '../constants';
 import { Navbar } from '../components/Navbar';
+import { SEO } from '../components/SEO';
 import surpriseReactionImage from '../assets/images/image.png';
 import creativeScenarioImage from '../assets/images/image1.png';
 
@@ -38,6 +39,11 @@ const prankImages = [
 export default function Landing() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+      <SEO
+        title="Create free Social Media Mockups and fake chat images and videos"
+        description="No sign up required. Create high-quality mockup images and videos for WhatsApp, Instagram, and other apps to prank your friends."
+        canonical="/"
+      />
       <Navbar />
       
       <main className="flex-1">
