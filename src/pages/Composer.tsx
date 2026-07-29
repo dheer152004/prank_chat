@@ -515,7 +515,7 @@ export default function Composer() {
         title={`Create ${platformName} Mockup`}
         description={`No sign up required. Create high-quality ${platformName.toLowerCase()} mockup images and videos to prank your friends.`}
         canonical={`/compose/${platform ?? ''}`}
-        noIndex
+        noIndex={true}
       />
       <div className="h-screen bg-[#f0f2f5] flex font-sans text-gray-900 overflow-hidden w-full">
         {/* Left Sidebar: Nav replacement (hidden on mobile) */}
